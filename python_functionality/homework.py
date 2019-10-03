@@ -16,7 +16,7 @@ def task_1_fix_names_start_letter(data: DT) -> DT:
         >>> [{'name': 'Alex', 'age': 26}, {'name': 'Denys', 'age': 89}]
     """
     for dict_instance in data:
-        if dict_instance.get('name', None):
+        if dict_instance.get('name'):
             dict_instance['name'] = dict_instance['name'].capitalize()
 
     return data
