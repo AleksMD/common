@@ -31,12 +31,8 @@ def task_2_remove_dict_fields(data: DT, redundant_keys: List[str]) -> DT:
                             {'name': 'denys', 'age': 89}], 'age')
         >>> [{'name': 'Alex'}, {'name': 'denys'}]
     """
-    for dict_instance in data:
-        for key in redundant_keys:
-            if dict_instance.get(key, None):
-                del dict_instance[key]
-
-    return data
+    return [{k: v for k, v in d.items()}
+            for d in data for key in redundant_keys if not d.get(key)]
 
 
 def task_3_find_item_via_value(data: DT, value) -> DT:
@@ -74,7 +70,7 @@ def task_6_min_value_list_of_dicts(data: DT, key: str) -> ST:
     Returns:
 
     """
-    return sorted([d for d in data if d.get(key, None)],
+    return sorted([d for d in data if d.get(key)],
                   key=lambda x: x[key])[0]
 
 
