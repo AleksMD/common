@@ -85,11 +85,9 @@ class TestRectangleMethods(unittest.TestCase):
         self.assertEqual(result_sqr, self.ctrl_sqr_diag/2)
 
     def test_get_radius_of_inscribed_circle(self):
-        rect_radius_of_inscr_circ = self.ctrl_rect_diag / (math.sqrt(2) * 2)
         sqr_radius_of_inscr_circ = self.ctrl_sqr_diag / (math.sqrt(2) * 2)
 
-        self.assertEqual(self.rect.get_radius_of_inscribed_circle(),
-                         rect_radius_of_inscr_circ)
+        self.assertRaises(ValueError, self.rect.get_radius_of_inscribed_circle)
         self.assertEqual(self.sqr.get_radius_of_inscribed_circle(),
                          sqr_radius_of_inscr_circ)
 
