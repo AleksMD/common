@@ -59,7 +59,6 @@ class TestRectangleMethods(unittest.TestCase):
     def test_get_rectangle_square(self):
         self.assertEqual(self.rect.get_rectangle_square(), 8)
 
-
     def test_get_sum_of_corners(self):
         sum_of_corn = self.rect.get_sum_of_corners
         invalid_num_of_corn = [-1, 0, 5]
@@ -70,9 +69,7 @@ class TestRectangleMethods(unittest.TestCase):
                 if val in [-1, 0]:
                     self.skipTest("The method doesn't check either zero or negative values")
                 else:
-                    print("inside test get_sum of corners, checking ValueError")
                     self.assertRaises(ValueError, sum_of_corn, val)
-                    print('after test')
 
         for val in range(1, 5):
             with self.subTest(val=val):
