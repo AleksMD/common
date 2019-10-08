@@ -40,8 +40,8 @@ class TestTwoList(unittest.TestCase):
         self.assertEqual(func_4(num), 7)
 
     def test_func_5(self):
-        a = [0, 2, 3, 4, 6, 7, 10]
-        b = [2, 3, 4, 6, 7, 10, 0]
+        a = [0, 2, 0, 3, 0, 4, 6, 7, 10]
+        b = [2, 3, 4, 6, 7, 10, 0, 0, 0]
         self.assertEqual(func_5(a), b)
 
     def test_func_6(self):
