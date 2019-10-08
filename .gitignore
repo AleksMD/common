@@ -4,4 +4,4 @@ __pycache__/
 
 .pyc
 
-.relational_database/db_utils.py
+.relational_database/cat.txt
