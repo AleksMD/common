@@ -366,8 +366,3 @@ class House:
 
     def get_room_square(self):
         return self.get_walls_square() - (self.get_door_square() + self.get_windows_square())
-
-
-if __name__ == '__main__':
-    cheetah = Cheetah(6)
-    print(cheetah)
