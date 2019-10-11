@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 import math
 from my_func import func_1, func_2, func_3, func_4, func_5, func_6, func_7, \
     func_8, func_9, func_10, func_11, func_12, func_13, func_14, func_15, \
@@ -18,22 +19,16 @@ class TestTwoList(unittest.TestCase):
         self.assertEqual(func_2(string), 5)
 
     def test_func_3_true(self):
-        num1 = 27
-        num2 = 81
-        num3 = 3
-        num4 = 9
-        self.assertTrue(func_3(num1))
-        self.assertTrue(func_3(num2))
-        self.assertTrue(func_3(num3))
-        self.assertTrue(func_3(num4))
+        nums = 27, 81, 3, 9
+        for num in nums:
+            with self.subTest(num=num):
+                self.assertTrue(func_3(num))
 
     def test_func_3_false(self):
-        num = 4
-        num1 = 6
-        num2 = 12
-        self.assertFalse(func_3(num))
-        self.assertFalse(func_3(num1))
-        self.assertFalse(func_3(num2))
+        nums = 4, 6, 12
+        for num in nums:
+            with self.subTest(num=num):
+                self.assertFalse(func_3(num))
 
     def test_func_4(self):
         num = 43
@@ -80,21 +75,21 @@ class TestTwoList(unittest.TestCase):
         self.assertEqual(func_12(s), 'time')
         self.assertEqual(func_12(s1), 'love')
 
-    def test_func_13(self):
-        s = 'My name is Michele'
-        self.assertEqual(func_13(s), 'Michele is name My')
+    @mock.patch('builtins.input', return_value='My name is Michele')
+    def test_func_13(self, value):
+        self.assertEqual(func_13(), 'Michele is name My')
 
-    def test_func_14(self):
-        num = 7
-        self.assertEqual(func_14(num), [1, 1, 2, 3, 5, 8, 13])
+    @mock.patch('builtins.input', return_value=7)
+    def test_func_14(self, value):
+        self.assertEqual(func_14(), [1, 1, 2, 3, 5, 8, 13])
 
     def test_func_15(self):
         a = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
         self.assertEqual(func_15(a), [4, 16, 36, 64, 100])
 
-    def test_func_16(self):
-        rang = 4
-        self.assertEqual(func_16(rang), 10)
+    @mock.patch('builtins.input', return_value=4)
+    def test_func_16(self, value):
+        self.assertEqual(func_16(), 10)
 
     def test_func_17(self):
         num = 4

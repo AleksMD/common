@@ -72,17 +72,19 @@ def func_12(s):
     return max(s, key=len)
 
 
-def func_13(s):
-    return ' '.join(s.split()[::-1])
+def func_13():
+    user_str = input('Please, type some words: ')
+    return ' '.join(user_str.split()[::-1])
 
 
-def func_14(num):
+def func_14():
+    user_num = int(input('Please, enter any number: '))
     a = 0
     b = 1
     fib_list = []
-    if num <= 1:
+    if user_num <= 1:
         return 1
-    for i in range(num):
+    for i in range(user_num):
         a, b = b, a+b
         fib_list.append(a)
 
@@ -93,9 +95,10 @@ def func_15(n: list):
     return [i for i in n if i % 2 == 0]
 
 
-def func_16(rang: int):
+def func_16():
+    input_num = int(input('Enter any number: '))
     sum_of_range = 0
-    for i in range(1, rang+1):
+    for i in range(1, input_num+1):
         sum_of_range += i
     return sum_of_range
 
@@ -129,4 +132,3 @@ def func_20(num, num1):
         return False
     else:
         return '1'
-

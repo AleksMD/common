@@ -24,32 +24,36 @@ class TestMyFuncModule:
     def test_func_4(self, num, result):
         assert my_func.func_4(num) == result
 
-    @pytest.mark.parametrize('list_of_int, result', [([0, 2, 0, 3, 0, 4, 6, 7, 10],
-                                                     [2, 3, 4, 6, 7, 10, 0, 0, 0])])
+    @pytest.mark.parametrize('list_of_int, result',
+                             [([0, 2, 0, 3, 0, 4, 6, 7, 10],
+                              [2, 3, 4, 6, 7, 10, 0, 0, 0])])
     def test_func_5(self, list_of_int, result):
         assert my_func.func_5(list_of_int) == result
 
-    @pytest.mark.parametrize('list_of_int, result', [
-                                                    ([5, 7, 9, 11], True),
-                                                    ([5, 7, 9, 10, 11, 16], False),
-                                                    ([5, 8, 11, 14], True)])
+    @pytest.mark.parametrize('list_of_int, result',
+                             [([5, 7, 9, 11], True),
+                              ([5, 7, 9, 10, 11, 16], False),
+                              ([5, 8, 11, 14], True)])
     def test_func_6(self, list_of_int, result):
         assert my_func.func_6(list_of_int) == result
 
-    @pytest.mark.parametrize('list_of_items, result', [
-                                                      ([5, 3, 4, 3, 4], 5),
-                                                      (['a', 'b', 'a', 'c', 'c'], 'b')
-                                                      ])
+    @pytest.mark.parametrize('list_of_items, result',
+                             [
+                              ([5, 3, 4, 3, 4], 5),
+                              (['a', 'b', 'a', 'c', 'c'], 'b')
+                               ])
     def test_func_7(self, list_of_items, result):
         assert my_func.func_7(list_of_items) == result
 
-    @pytest.mark.parametrize('list_of_int, result', [([1, 2, 3, 4, 6, 7, 8], 5),
-                                                     ([1, 3, 5, 6], 2)])
+    @pytest.mark.parametrize('list_of_int, result',
+                             [([1, 2, 3, 4, 6, 7, 8], 5),
+                              ([1, 3, 5, 6], 2)])
     def test_func_8(self, list_of_int, result):
         assert my_func.func_8(list_of_int) == result
 
-    @pytest.mark.parametrize('list_of_items, result', [([1, 2, 3, (1, 2), 3], 3),
-                                                       ([1, 2, 3, 4, ('a', 'b')], 4)])
+    @pytest.mark.parametrize('list_of_items, result',
+                             [([1, 2, 3, (1, 2), 3], 3),
+                              ([1, 2, 3, 4, ('a', 'b')], 4)])
     def test_func_9(self, list_of_items, result):
         assert my_func.func_9(list_of_items) == result
 
