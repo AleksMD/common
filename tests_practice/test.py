@@ -110,7 +110,7 @@ class TestTwoList(unittest.TestCase):
         num = 10
         num1 = 20
         num2 = 10
-        self.assertEqual(func_20(num, num2), '1')
+        self.assertEqual(func_20(num, num2), '-1')
         self.assertTrue(func_20(num, num1))
         self.assertFalse(func_20(num1, num))
 
