@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block main %}
+<div class="vegetables">
+<h1>Vegetables:</h1>
 <ul>
     {% for item in vegetables %}
     {% if item == 'beetroot' %}
@@ -9,4 +11,5 @@
     {% endif %}
     {% endfor %}
 </ul>
+</div>
 {% endblock %}
