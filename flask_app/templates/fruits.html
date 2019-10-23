@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block main %}
+<ul>
+    {% for item in fruits %}
+    {% if item == 'strawberry' %}
+    <li style="color: red;">{{ item}}</li>
+    {% else %}
+    <li> {{ item }}</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endblock %}
