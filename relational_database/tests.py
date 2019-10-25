@@ -6,9 +6,9 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-from relational_database.config import TEST_DATABASE, DATABASE, FIXTURES_PATH
-from relational_database.db_utils import init_tables, clear_tables, fill_tables, drop_tables
-from relational_database.homework import \
+from config import TEST_DATABASE, DATABASE, FIXTURES_PATH
+from db_utils import init_tables, clear_tables, fill_tables, drop_tables
+from homework import \
     (task_1_add_new_record_to_db,
      task_2_list_all_customers,
      task_3_list_customers_in_germany,
@@ -163,6 +163,7 @@ class TestSQLQueries(unittest.TestCase):
             actual_result = task_8_count_customers_by_city(cursor)
             actual_result = [dict(record) for record in actual_result]
             expected_result = self.load_rows_from_file("task_8.json")
+            expected_result.sort(key=lambda c: c['city'], reverse=True)
 
         for i, row in enumerate(actual_result):
             self.assertDictEqual(row, expected_result[i])
@@ -214,6 +215,7 @@ class TestSQLQueries(unittest.TestCase):
 
     def test_task_14(self):
         with self.conn.cursor(cursor_factory=RealDictCursor) as cursor:
+            cursor.execute("SET LC_MONETARY TO 'en_US.UTF-8'")
             actual_result = task_14_list_products_with_supplier_information(cursor)
             actual_result = [dict(record) for record in actual_result]
             expected_result = self.load_rows_from_file("task_14.json")
