@@ -20,9 +20,7 @@ def get_home_page():
 def alarm_clock(page):
     html_pages_db = html_page_db_creator(get_data())
     if page in html_pages_db:
-        print(page)
         html_page_data = html_page_db_creator(get_data()).get(page)
-        print(html_page_data)
         return render_template(f"{page}.html", title=html_page_data.title,
                                text=html_page_data.text)
     else:
