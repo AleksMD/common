@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Home</title>
+{% endblock %}
+{% block style %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+{% block main %}
+<div class="item_container">
+<div class="products">
+    <a href="/product">
+        <img src="{{ url_for('static', filename='grocery.jpg')}}" width="400" height="250">
+    </a>
+</div>
+<div class="supermarkets">
+    <a href="/supermarket">
+        <img src="{{ url_for('static', filename='supermarketwines.jpg')}}" width="400" height="250">
+    </a>
+</div>
+</div>
+{% endblock %}
