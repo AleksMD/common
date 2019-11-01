@@ -4,7 +4,7 @@
 <h1>{{ category }}</h1>
     <ul>
         {% for staff in data[category] %}
-            {% for item, value in staff.items() %}
+            {% for item, value in staff.to_dict().items() %}
             <li>{{ item }}: {{ value }}</li>
             {% endfor %}
         {% endfor %}

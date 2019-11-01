@@ -1,22 +1,12 @@
+import json
+
 from flask import Blueprint, render_template, request, session, jsonify
 from product_db import PRODUCT_DB, ProductTemplate
-
 
 product_page = Blueprint('product_page', __name__, template_folder='./templates')
 
 
-@product_page.route('/product/<int:id_>', methods=['GET'])
-def product(id_=None):
-    if request.method == 'GET' and id_ is None:
-        return render_template('all_products.html')
-    elif request.method == 'GET' and id_ is not None:
-        required_product = {key: value for category in PRODUCT_DB.values()
-                            for item in category for key, value in item.items()
-                            if item.get('id') == id_}
-        return required_product
-
-
-@product_page.route('/product', methods=['POST', 'GET'])
+@product_page.route('/product', methods=['GET', 'POST'])
 def get_or_update_product():
     if request.method == 'POST':
         product_to_add = ProductTemplate(**request.form)
@@ -29,22 +19,23 @@ def get_or_update_product():
             PRODUCT_DB['other'].append(product_to_add.to_dict())
         return 'Successfully added'
     elif request.method == 'GET':
+        id_ = request.args.get('id_')
+        if id_ is not None:
+            required_product = [item for products in PRODUCT_DB.values()
+                                for item in products if item.id == id_]
+            if required_product:
+                return render_template('product.html', title=required_product[0].category,
+                                       data=required_product[0].to_dict())
+            else:
+                return 'Product was not founded!'
         data = request.form
         response = []
         if data:
+            category_to_search = PRODUCT_DB.get(data['category'])
             for item in data.items():
-                key, value = item
-            for category in PRODUCT_DB.values():
-                for item in category:
-                    if not isinstance(value, type(item.get(key))):
-                        try:
-                            value = type(item.get(key))(value)
-                            if item.get(key) == value:
-                                response.append(item)
-                        except (TypeError, ValueError):
-                            return 'You have entered bad value'
-            return jsonify(tuple(response))
+                for prod in category_to_search:
+                    if item in prod:
+                        response.append(prod.to_dict())
+            return json.dumps(response)
         else:
             return render_template('all_products.html', data=PRODUCT_DB)
-    else:
-        return 'Bad request'
