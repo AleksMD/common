@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends './base.html' %}
+{% block main %}
+{% for category in data.keys() %}
+<h1>{{ category }}</h1>
+    <ul>
+        {% for staff in data[category] %}
+            {% for item, value in staff.items() %}
+            <li>{{ item }}: {{ value }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endfor %}
+{% endblock%}
