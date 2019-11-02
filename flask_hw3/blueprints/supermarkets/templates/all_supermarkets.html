@@ -20,4 +20,11 @@
     <li><a href="{{ url_for('supermarket_page.get_or_update_supermarket', id=sup['id']) }}"> {{ sup['name'] }}</a></li>
     {% endfor %}
 </ul>
+<form action="{{ url_for('supermarket_page.get_or_update_supermarket')}}" method="get"
+    enctype="application/x-www-form-urlencoded">
+    <input type="text" name="id"><br>
+    <input type="text" name="name" value="name"><br>
+    <input type="text" name="location" value="location"><br>
+    <input type="submit"><br>
+</form>
 {% endblock%}

@@ -13,5 +13,10 @@ def home():
     return render_template('home.html')
 
 
+@app.errorhandler(404)
+def page_not_found_error(error):
+    return render_template('error_404.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

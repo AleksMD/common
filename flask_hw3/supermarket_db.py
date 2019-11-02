@@ -29,10 +29,10 @@ class SupermarketTemplate:
             return NotImplemented
 
 
-SUPERMARKET_DB = [SupermarketTemplate('Billa', '23 August st., 10, Kharkiv, Ukraine',
+SUPERMARKET_DB = [SupermarketTemplate('Billa', 'Odessa',
                                       'billa.jpg'),
-                  SupermarketTemplate('Class', 'Klochkivska st., 101, Kharkiv, Ukraine',
+                  SupermarketTemplate('Class', 'Lviv',
                                       'class.jpg'),
-                  SupermarketTemplate('Rost', 'Peremogy ave., 63, Kharkiv, Ukraine',
+                  SupermarketTemplate('Rost', 'Kharkiv',
                                       'rost.jpg')
                   ]

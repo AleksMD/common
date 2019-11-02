@@ -26,20 +26,22 @@ def get_or_update_supermarket():
             return redirect(url_for('home'))
     elif request.method == 'GET':
         id_ = request.args.get('id')
-        if id_ is not None:
+        data = request.args
+        if id_:
+            print('inside id')
             required_sup = [item.to_dict() for item in SUPERMARKET_DB if item.id == id_]
             if len(required_sup) == 1:
                 return render_template('supermarket.html',  sup=required_sup[0])
             elif len(required_sup) > 1:
                 return render_template('all_supermarkets.html', data=required_sup)
             else:
-                return 'Supermarket was not founded!'
-        data = request.form
-        if data:
-            response = [sup.to_dict() for item in data.items()
-                        for sup in SUPERMARKET_DB if item in sup]
-            return jsonify(response)
+                return 'Supermarket was not founded with this id!'
+        elif not id_ and data:
+            response = {sup for item in data.items()
+                        for sup in SUPERMARKET_DB if item in sup}
+            return render_template('all_supermarkets.html', data=response)
         else:
+
             data = [sup.to_dict() for sup in SUPERMARKET_DB]
             return render_template('all_supermarkets.html', data=data)
 
