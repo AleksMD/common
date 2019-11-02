@@ -33,21 +33,13 @@ class ProductTemplate:
             return NotImplemented
 
 
-PRODUCT_DB = {'fruits': [ProductTemplate('Apples',
-                                         'Fresh ripe apples from Ukrainian gardens',
-                                         'apples.jpg', 15, category='fruits'),
-                         ProductTemplate('Bananas',
-                                         'Bananas were grown and delivered from Ecuador',
-                                         'bananas.jpg', 15, category='fruits')],
+PRODUCT_DB = [ProductTemplate('Apples', 'Fresh ripe apples from Ukrainian gardens',
+                              'apples.jpg', 15, category='fruits'),
+              ProductTemplate('Bananas', 'Bananas were grown and delivered from Ecuador',
+                              'bananas.jpg', 15, category='fruits'),
+              ProductTemplate('Carrot', 'Carrot was grown and delivered from the USA.',
+                              'carrots.jpg', 15, category='vegetables'),
+              ProductTemplate('Tomatoes', 'Tomatoes were grown and delivered from Poland',
+                              'tomatoes.jpg', 23, category='vegetables')]
 
-              'vegetables': [ProductTemplate('Carrot',
-                                             'Carrot was grown and delivered from the USA.',
-                                             'carrot.jpg', 15, category='vegetables'),
-                             ProductTemplate('Tomatoes',
-                                             'Tomatoes were grown and delivered from Poland',
-                                             'tomatoes.jpg', 23, category='vegetables')],
-              'other': []
 
-              }
-
-SUPERMARKET_DB = {}

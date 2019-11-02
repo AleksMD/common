@@ -1,11 +1,9 @@
 {% extends './base.html' %}
 {% block main %}
-<h1>{{ title }}</h1>
+<h1>{{ prod['name'] }}</h1>
+<img src="{{ url_for('product_page.static', filename=prod['img_name']) }}" height="200" width="200">
     <ul>
-        {% for key, value in data.items() %}
-            {% if key != 'category' %}
-            <li>{{ key }}: {{ value }}</li>
-            {% endif %}
-        {% endfor %}
+        <li> Price: {{ prod['price'] }} $ per kg</li>
+        <li> Description: {{ prod['description'] }}</li>
     </ul>
 {% endblock%}

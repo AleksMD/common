@@ -1,13 +1,23 @@
 {% extends './base.html' %}
-{% block main %}
-{% for category in data.keys() %}
-<h1>{{ category }}</h1>
-    <ul>
-        {% for staff in data[category] %}
-            {% for item, value in staff.to_dict().items() %}
-            <li>{{ item }}: {{ value }}</li>
-            {% endfor %}
-        {% endfor %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+        <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('product_page.add_product')}}">Add New Product
+            <span class="sr-only">(current)</span></a>
+      </li>
     </ul>
-{% endfor %}
+  </div>
+</nav>
+{% endblock %}
+{% block main %}
+<ul>
+    {% for prod in data %}
+    <li><a href="{{ url_for('product_page.get_or_update_product', id=prod['id']) }}"> {{ prod['name'] }}</a></li>
+    {% endfor %}
+</ul>
 {% endblock%}

@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends './base.html' %}
+{% block main %}
+<h1>{{ sup['name'] }}</h1>
+<img src="{{ url_for('supermarket_page.static', filename=sup['img_name']) }}" height="200" width="200">
+    <ul>
+        <li> Location: {{ sup['location'] }}</li>
+    </ul>
+{% endblock%}
