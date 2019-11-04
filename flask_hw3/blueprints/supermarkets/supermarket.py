@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, render_template, request, jsonify, url_for, redirect
+from flask import Blueprint, render_template, request, session, url_for, redirect
 from werkzeug.utils import secure_filename
 
 from supermarket_db import SUPERMARKET_DB, SupermarketTemplate
@@ -26,24 +26,21 @@ def get_or_update_supermarket():
             return redirect(url_for('home'))
     elif request.method == 'GET':
         id_ = request.args.get('id')
-        data = request.args
         if id_:
-            print('inside id')
+            session[id_] = True
             required_sup = [item.to_dict() for item in SUPERMARKET_DB if item.id == id_]
             if len(required_sup) == 1:
                 return render_template('supermarket.html',  sup=required_sup[0])
-            elif len(required_sup) > 1:
-                return render_template('all_supermarkets.html', data=required_sup)
             else:
                 return 'Supermarket was not founded with this id!'
-        elif not id_ and data:
+        data = request.args
+        if data:
             response = {sup for item in data.items()
                         for sup in SUPERMARKET_DB if item in sup}
-            return render_template('all_supermarkets.html', data=response)
+            return render_template('all_supermarkets.html', link_flags=session, data=response)
         else:
-
             data = [sup.to_dict() for sup in SUPERMARKET_DB]
-            return render_template('all_supermarkets.html', data=data)
+            return render_template('all_supermarkets.html', link_flags=session, data=data)
 
 
 @supermarket_page.route('/add_supermarket', methods=['GET'])

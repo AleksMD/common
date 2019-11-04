@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, render_template, request, jsonify, url_for, redirect
+from flask import Blueprint, render_template, request, session, url_for, redirect
 from werkzeug.utils import secure_filename
 
 from product_db import PRODUCT_DB, ProductTemplate
@@ -24,22 +24,21 @@ def get_or_update_product():
             return redirect(url_for('home'))
     elif request.method == 'GET':
         id_ = request.args.get('id')
-        if id_ is not None:
+        if id_:
+            session[id_] = True
             required_product = [item.to_dict() for item in PRODUCT_DB if item.id == id_]
             if len(required_product) == 1:
                 return render_template('product.html',  prod=required_product[0])
-            elif len(required_product) > 1:
-                return render_template('all_products.html', data=required_product)
             else:
                 return 'Product was not founded!'
-        data = request.form
+        data = request.args
         if data:
             response = [prod.to_dict() for item in data.items()
                         for prod in PRODUCT_DB if item in prod]
-            return jsonify(response)
+            return render_template('product.html',  prod=response[0])
         else:
             data = [prod.to_dict() for prod in PRODUCT_DB]
-            return render_template('all_products.html', data=data)
+            return render_template('all_products.html', data=data, link_flags=session)
 
 
 @product_page.route('/add_product', methods=['GET'])

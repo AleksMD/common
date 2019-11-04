@@ -1,18 +1,67 @@
-.item_container {
+.navbar, .home-footer {
     padding: 10px;
     margin: 10px;
+    background-image: url('header_img.jpg');
+    background-size: cover;
+    border-radius: 10px;
 }
 
-.supermarkets, .products {
+body {
+  background-color: lightblue;
+}
+.general-container{
     position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.item_container {
+    position: relative;
+    border-radius: 10px;
+    background-image: url('bg_image.jpg');
+    background-position: center;
+    background-size: cover;
+    padding: 10px;
+    margin: 10px;
+    height: 520px;
+}
+
+.products {
+    border-radius: 10px;
+    position: relative;
     margin-top: 5px;
-    width: 400;
-    margin: 5px;
+    width: 400px;
+    height: 150px;
+    top: 5px;
+    bottom: 5px;
+    padding: 5px;
+
+}
+.supermarkets {
+    border-radius: 10px;
+    position: relative;
+    margin-top: 5px;
+    width: 400px;
+    height: 150px;
+    bottom: 150px;
+    padding: 5px;
+    left: 500px;
+}
+img {
     border: solid;
     border-color: green;
+    border-radius: 10px;
 }
-.products {
-    position: absolute;
-    bottom: 5px;
-    width: 400;
-    }
+
+.home-footer {
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    bottom: 0px;
+}
+h3 {
+    text-align: left;
+    vertical-align: center;
+    color: gold;
+}
