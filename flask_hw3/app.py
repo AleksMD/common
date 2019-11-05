@@ -8,6 +8,7 @@ app.register_blueprint(product_page)
 app.register_blueprint(supermarket_page)
 app.secret_key = 'NASA_SECRET'
 
+
 @app.route('/')
 def home():
     return render_template('home.html')

@@ -12,13 +12,13 @@ product_page = Blueprint('product_page', __name__, template_folder='./templates'
 @product_page.route('/product', methods=['GET', 'POST'])
 def get_or_update_product():
     if request.method == 'POST':
-        form = request.form
-        file = request.files['product_img']
-        filename = secure_filename(file.filename)
-        if form:
-            product_to_add = ProductTemplate(img_name=filename, **form)
+        client_form = request.form
+        received_file = request.files['product_img']
+        filename = secure_filename(received_file.filename)
+        if client_form:
+            product_to_add = ProductTemplate(img_name=filename, **client_form)
             PRODUCT_DB.append(product_to_add)
-            file.save(os.path.join(product_page.root_path + '/static/', filename))
+            received_file.save(os.path.join(f'{product_page.root_path}/static/', filename))
             return redirect(url_for('home'))
         else:
             return redirect(url_for('home'))
@@ -30,12 +30,17 @@ def get_or_update_product():
             if len(required_product) == 1:
                 return render_template('product.html',  prod=required_product[0])
             else:
-                return 'Product was not founded!'
+                flash('Unfortunately the product was not founded. Please try another one!')
+                return render_template('all_products.html')
         data = request.args
         if data:
-            response = {prod.to_dict() for item in data.items()
+            response = {prod for item in data.items()
                         for prod in PRODUCT_DB if item in prod}
-            return render_template('all_products.html', prod=response)
+            if response:
+                return render_template('all_products.html', link_flags=session, data=response)
+            else:
+                flash('Unfortunately the product was not founded. Please try another one!')
+                return render_template('all_products.html')
         else:
             data = [prod.to_dict() for prod in PRODUCT_DB]
             return render_template('all_products.html', data=data, link_flags=session)

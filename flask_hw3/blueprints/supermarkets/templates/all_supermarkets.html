@@ -20,6 +20,15 @@
 {% endblock %}
 {% block container %}
 <div class="all-super">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+    <ul>
+            {% for message in messages %}
+                <li class="flashes">{{ message }}</li>
+            {% endfor %}
+    </ul>
+        {% endif %}
+    {% endwith %}
 <ul>
     {% for sup in data %}
             {% if link_flags[sup['id']] == True %}
