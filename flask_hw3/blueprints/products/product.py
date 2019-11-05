@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, render_template, request, session, url_for, redirect
+from flask import Blueprint, render_template, request, session, url_for, redirect, flash
 from werkzeug.utils import secure_filename
 
 from product_db import PRODUCT_DB, ProductTemplate
@@ -33,9 +33,9 @@ def get_or_update_product():
                 return 'Product was not founded!'
         data = request.args
         if data:
-            response = [prod.to_dict() for item in data.items()
-                        for prod in PRODUCT_DB if item in prod]
-            return render_template('product.html',  prod=response[0])
+            response = {prod.to_dict() for item in data.items()
+                        for prod in PRODUCT_DB if item in prod}
+            return render_template('all_products.html', prod=response)
         else:
             data = [prod.to_dict() for prod in PRODUCT_DB]
             return render_template('all_products.html', data=data, link_flags=session)
