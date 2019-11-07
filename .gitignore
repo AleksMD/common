@@ -5,3 +5,4 @@ __pycache__/
 .pyc
 
 relational_database/cat.txt
+.venv/
