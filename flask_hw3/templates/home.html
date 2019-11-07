@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Home</title>
+{% endblock %}
+{% block style %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+{% block main %}
+        <div class="item_container">
+            {% block container %}
+                <div class="products">
+                    <a href="/product">
+                        <h3>Products.</h3>
+                        <img src="{{ url_for('static', filename='grocery.jpg')}}" width="400" height="250">
+
+                    </a>
+                </div>
+                <div class="supermarkets">
+                    <a href="/supermarket">
+                        <h3>Supermarkets.</h3>
+                        <img src="{{ url_for('static', filename='supermarketwines.jpg')}}" width="400" height="250">
+                    </a>
+                </div>
+            {% endblock %}
+</div>
+{% endblock %}
+{% block footer %}
+<div class="home-footer">
+    <p>All rights reserved. World Wide Grocery Corporation. 2019.</p>
+</div>
+{% endblock %}

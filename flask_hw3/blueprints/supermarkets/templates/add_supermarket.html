@@ -1,0 +1,17 @@
+{% extends './home.html' %}
+{% block style %}
+{{ super() }}
+   <link rel="stylesheet" href="{{ url_for('supermarket_page.static', filename='supermarkets.css') }}">
+{% endblock %}
+{% block container %}
+<form action="{{ url_for('supermarket_page.get_or_update_supermarket')}}" method="post"
+    enctype="multipart/form-data">
+    <em>Name:</em><br>
+    <input type="text" name="name"><br>
+    <em>Location:</em><br>
+    <input type="text" name="location"><br>
+    <em>Upload image:</em><br>
+    <input type="file" name="supermarket_img"><br>
+    <input type="submit"><br>
+</form>
+{% endblock%}

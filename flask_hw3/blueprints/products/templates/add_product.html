@@ -1,0 +1,21 @@
+{% extends './home.html' %}
+{% block style %}
+{{ super() }}
+   <link rel="stylesheet" href="{{ url_for('product_page.static', filename='products.css') }}">
+{% endblock %}
+{% block container %}
+<form action="{{ url_for('product_page.get_or_update_product')}}" method="post"
+    enctype="multipart/form-data">
+    <em>Name:</em><br>
+    <input type="text" name="name"><br>
+    <em>Category:</em><br>
+    <input type="text" name="category"><br>
+    <em>Price:</em><br>
+    <input type="text" name="price"><br>
+    <em>Description:</em><br>
+    <input type="text" name="description"><br>
+    <em>Upload image:</em><br>
+    <input type="file" name="product_img"><br>
+    <input type="submit"><br>
+</form>
+{% endblock%}

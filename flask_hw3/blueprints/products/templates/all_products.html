@@ -1,0 +1,53 @@
+{% extends './home.html' %}
+{% block style %}
+{{ super() }}
+   <link rel="stylesheet" href="{{ url_for('product_page.static', filename='products.css') }}">
+{% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+        <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('product_page.add_product')}}">Add New Product
+            <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+{% block container %}
+<div class="all-products">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+    <ul>
+            {% for message in messages %}
+                <li class="flashes">{{ message }}</li>
+            {% endfor %}
+    </ul>
+        {% endif %}
+    {% endwith %}
+    <ul>
+        {% for prod in data %}
+            {% if link_flags[prod['id']] == True %}
+                <li><a href="{{ url_for('product_page.get_or_update_product', id=prod['id']) }}"
+                        style="pointer-events: none; color: grey;"> {{ prod['name'] }}</a></li>
+            {% else %}
+                <li><a href="{{ url_for('product_page.get_or_update_product', id=prod['id']) }}"> {{ prod['name'] }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+<form action="{{ url_for('product_page.get_or_update_product')}}" method="get"
+    enctype="application/x-www-form-urlencoded">
+    <em>Id:</em><br>
+    <input type="text" name="id"><br>
+    <em>Name:</em><br>
+    <input type="text" name="name"><br>
+    <em>Price:</em><br>
+    <input type="text" name="price"><br>
+    <input type="submit" value="Quick Search">
+</form>
+{% endblock%}

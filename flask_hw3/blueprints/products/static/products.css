@@ -1,0 +1,36 @@
+body {
+  background-color: lightblue;
+}
+.general-container {
+    background-image: url('products_bg_img.jpg');
+    background-position: center;
+    background-size: cover;
+}
+.item_container {
+    position: relative;
+    height: 450px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background-image: url('products_list_bg_img.jpg');
+    background-position: center;
+    background-size: cover;
+}
+.home-footer {
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    margin: 10px;
+    top: 5px;
+    padding: 10px;
+    right: 0px;
+    left: 0px;
+}
+
+.all-products {
+    color: gold;
+    font-size: 2em;
+}
+.flashes {
+    color: red;
+}
