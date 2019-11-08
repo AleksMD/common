@@ -42,8 +42,8 @@ room_parser_patch.replace_argument("status",
                                    location=['form', 'args'])
 room_parser_delete = room_parser.copy()
 room_parser_delete.replace_argument("number",
-                                   type=int,
-                                   location=['form', 'args'],
-                                   required=True,
-                                   help='This field cannot be empty.'
-                                   )
+                                    type=int,
+                                    location=['form', 'args'],
+                                    required=True,
+                                    help='This field cannot be empty.'
+                                    )
