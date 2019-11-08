@@ -2,9 +2,9 @@ from flask_restful import Api
 from flask import Blueprint
 
 
-from blueprints.rooms.rooms_routes import Rooms
+from blueprints.tenants.tenants_routes import Tenants
 
 
-rooms_page = Blueprint('Rooms', __name__)
-api = Api(rooms_page)
-api.add_resource(Rooms, '/rooms', '/room/<number>')
+tenants_page = Blueprint('Tenants', __name__)
+api = Api(tenants_page)
+api.add_resource(Tenants, '/tenants')

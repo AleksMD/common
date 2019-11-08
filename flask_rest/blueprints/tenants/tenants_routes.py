@@ -1,43 +1,41 @@
 from flask_restful import Resource
+from flask import request
 
-from blueprints.staff.arg_parser import room_parser, room_parser_post, room_parser_patch, room_parser_delete
-from blueprints.rooms.room_object_serlzer import marshal_with_decor
-from blueprints.rooms.rooms_db import rooms_storage, Room
+from blueprints.tenants.arg_parser import (tenant_parser,
+                                           tenant_parser_delete)
+from blueprints.tenants.tenant_object_serlzer import marshal_with_decor
+from blueprints.tenants.tenants_db import tenants_storage, Tenant
 
 
-class Rooms(Resource):
+class Tenants(Resource):
     @marshal_with_decor
     def get(self):
-        room_filters = room_parser.parse_args()
-        response = rooms_storage
-        if any(tuple(room_filters.values())):
-            response = [room for room in rooms_storage
-                        for room_filter in room_filters.items()
-                        if getattr(room, room_filter[0]) == room_filter[1]]
+        tenant_filters = tenant_parser.parse_args()
+        response = tenants_storage
+        if any(tuple(tenant_filters.values())):
+            response = [tenant for tenant in tenants_storage
+                        for tenant_filter in tenant_filters.items()
+                        if getattr(tenant, tenant_filter[0]) == tenant_filter[1]]
         return response
 
     def post(self):
-        new_room_values = room_parser_post.parse_args()
-        rooms_storage.append(Room(**new_room_values))
-        return 'New room was successfully added!'
+        new_tenant_values = request.get_json()
+        tenants_storage.append(Tenant(**new_tenant_values))
+        return 'New tenant was successfully added!'
 
     def patch(self):
-        room_info_to_update = room_parser_patch.parse_args()
-        room_to_update = None
-        for room in rooms_storage:
-            if room.number == room_info_to_update.get('number'):
-                room_to_update = room
-        for key, value in room_info_to_update.items():
-            setattr(room_to_update, key, value)
-        return f' Info about room #{room_to_update.number} was successfully updated!'
+        tenant_info_to_update = request.get_json()
+        tenant_to_update = None
+        for tenant in tenants_storage:
+            if tenant.name == tenant_info_to_update.get('name'):
+                tenant_to_update = tenant
+        for key, value in tenant_info_to_update.items():
+            setattr(tenant_to_update, key, value)
+        return f' Info about tenant - {tenant_to_update.name} was successfully updated!'
 
     def delete(self):
-        room_to_delete = room_parser_delete.parse_args().get('number')
-        for room in rooms_storage:
-            if room.number == room_to_delete:
-                rooms_storage.remove(room)
-                return f'The room #{room.number} successfully deleted from database!'
-
-
-
-
+        tenant_to_delete = tenant_parser_delete.parse_args().get('name')
+        for tenant in tenants_storage:
+            if tenant.name == tenant_to_delete:
+                tenants_storage.remove(tenant)
+                return f'The tenant - {tenant.name} successfully deleted from database!'

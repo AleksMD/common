@@ -1,10 +1,15 @@
 
-class Room:
-    def __init__(self, number, level, price,  status='open'):
-        self.number = number
-        self.level = level
-        self.status = status
-        self.price = price
+class Tenant:
+    def __init__(self, name, age, gender, passport_id, room_number, address):
+        self.name = name
+        self.age = age
+        self.gender = gender
+        self.passport_id = passport_id
+        self.room_number = room_number
+        self.address = address
 
 
-rooms_storage = [Room(3, 'Econom', 1000), Room(1, 'Business', 2000, 'closed')]
+tenants_storage = [Tenant('Aleks', 30, 'Male', 'FF123456', 3,
+                          {'city': 'Kharkiv', 'street': 'Naberezhna st.', 'house_number': 4}),
+                   Tenant('Emma', 23,  'Female', 'GG878321', 1,
+                          {'city': 'Poltava', 'street': 'Pivdenna st.', 'house_number': 345})]

@@ -1,49 +1,71 @@
 from flask_restful import reqparse
 
-room_parser = reqparse.RequestParser(bundle_errors=True)
-room_parser.add_argument("number", type=int, location='args')
-room_parser.add_argument("price", type=int, location='args')
-room_parser.add_argument("level", type=str, location='args')
-room_parser.add_argument("status", type=str, location='args')
+tenant_parser = reqparse.RequestParser(bundle_errors=True)
+tenant_parser.add_argument("name", type=str, location='args')
+tenant_parser.add_argument("passport_id", type=str, location='args')
+tenant_parser.add_argument("age", type=int, location='args')
+tenant_parser.add_argument("gender", type=str, location='args')
+tenant_parser.add_argument("room_number", type=int, location='args')
+tenant_parser.add_argument("address", type=dict, location='args')
 
-room_parser_post = room_parser.copy()
-room_parser_post.replace_argument("number",
-                                  type=int,
-                                  location='form',
-                                  required=True,
-                                  help='This field cannot be empty.')
-room_parser_post.replace_argument("price",
-                                  type=int,
-                                  location='form',
-                                  required=True,
-                                  help='This field cannot be empty.')
-room_parser_post.replace_argument("level",
-                                  type=str,
-                                  location='form',
-                                  required=True,
-                                  help='This field cannot be empty.')
-room_parser_post.replace_argument("status",
-                                  type=str,
-                                  location='form',
-                                  required=True,
-                                  help='This field cannot be empty.')
-room_parser_patch = room_parser.copy()
-room_parser_patch.replace_argument("number",
-                                   type=int,
-                                   location=['form', 'args'])
-room_parser_patch.replace_argument("price",
-                                   type=int,
-                                   location=['form', 'args'])
-room_parser_patch.replace_argument("level",
-                                   type=str,
-                                   location=['form', 'args'])
-room_parser_patch.replace_argument("status",
-                                   type=str,
-                                   location=['form', 'args'])
-room_parser_delete = room_parser.copy()
-room_parser_delete.replace_argument("number",
-                                   type=int,
-                                   location=['form', 'args'],
-                                   required=True,
-                                   help='This field cannot be empty.'
-                                   )
+tenant_parser_post = tenant_parser.copy()
+tenant_parser_post.replace_argument("name",
+                                    type=str,
+                                    location=['form', 'json'],
+                                    required=True,
+                                    help='This field cannot be empty.')
+tenant_parser_post.replace_argument("passport_id",
+                                    type=str,
+                                    location=['form', 'json'],
+                                    required=True,
+                                    help='This field cannot be empty.')
+tenant_parser_post.replace_argument("age",
+                                    type=int,
+                                    location=['form', 'json'],
+                                    required=True,
+                                    help='This field cannot be empty.')
+tenant_parser_post.replace_argument("gender",
+                                    type=str,
+                                    location=['form', 'json'],
+                                    required=True,
+                                    help='This field cannot be empty.')
+tenant_parser_post.replace_argument("room_number",
+                                    type=int,
+                                    location=['form', 'json'],
+                                    required=True,
+                                    help='This field cannot be empty.'
+                                    )
+tenant_parser_post.replace_argument("address",
+                                    type=str,
+                                    location=['form', 'json'],
+                                    required=True,
+                                    help='This field cannot be empty.'
+                                    )
+
+tenant_parser_patch = tenant_parser.copy()
+tenant_parser_patch.replace_argument("name",
+                                     type=str,
+                                     location=['form', 'args', 'json'])
+tenant_parser_patch.replace_argument("passport_id",
+                                     type=str,
+                                     location=['form', 'args', 'json'])
+tenant_parser_patch.replace_argument("age",
+                                     type=int,
+                                     location=['form', 'args', 'json'])
+tenant_parser_patch.replace_argument("gender",
+                                     type=str,
+                                     location=['form', 'args', 'json'])
+tenant_parser_patch.replace_argument("room_number",
+                                     type=int,
+                                     location=['form', 'args', 'json'])
+tenant_parser_patch.replace_argument("address",
+                                     type=str,
+                                     location=['form', 'args', 'json'])
+
+tenant_parser_delete = tenant_parser.copy()
+tenant_parser_delete.replace_argument("name",
+                                      type=str,
+                                      location=['form', 'args', 'json'],
+                                      required=True,
+                                      help='This field cannot be empty.'
+                                      )
