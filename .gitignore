@@ -6,3 +6,5 @@ __pycache__/
 
 relational_database/cat.txt
 venv/
+flask_rest/app.py
+flask_rest/__pycache__/
