@@ -1,11 +1,12 @@
-from hotel_db import DB
+from hotel_db import db
 
 
-class Tenant(DB.Model):
+class Tenant(db.Model):
 
-    passport_id = DB.Column(DB.String, unique=True, primary_key=True)
-    name = DB.Column(DB.String, unique=True)
-    age = DB.Column(DB.Integer)
-    gender = DB.Column(DB.String(5))
-    city = DB.Column(DB.String)
-    address = DB.Column(DB.String)
+    passport_id = db.Column(db.String, unique=True, primary_key=True)
+    name = db.Column(db.String, unique=True)
+    age = db.Column(db.Integer)
+    gender = db.Column(db.String(5))
+    city = db.Column(db.String)
+    address = db.Column(db.String)
+    rooms = db.relationship('Room', backref='tenant', lazy=True)

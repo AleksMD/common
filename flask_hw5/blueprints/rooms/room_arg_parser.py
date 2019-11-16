@@ -5,6 +5,8 @@ room_parser.add_argument("number", type=int, location=['form', 'args', 'json'])
 room_parser.add_argument("price", type=int, location=['form', 'args', 'json'])
 room_parser.add_argument("level", type=str, location=['form', 'args', 'json'])
 room_parser.add_argument("status", type=str, location=['form', 'args', 'json'])
+room_parser.add_argument("tenant_id",
+                         type=str, location=['form', 'args', 'json'])
 
 room_parser_post = room_parser.copy()
 room_parser_post.replace_argument("number",

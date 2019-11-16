@@ -1,13 +1,11 @@
-from hotel_db import DB
+from hotel_db import db
 
 
-class Room(DB.Model):
+class Room(db.Model):
 
-    number = DB.Column(DB.Integer, primary_key=True, unique=True)
-    level = DB.Column(DB.String(100))
-    price = DB.Column(DB.Integer)
-    status = DB.Column(DB.String(50))
-
-
-
-
+    number = db.Column(db.Integer, primary_key=True, unique=True)
+    level = db.Column(db.String(100))
+    price = db.Column(db.Integer)
+    status = db.Column(db.String(50))
+    tenant_id = db.Column(db.String, db.ForeignKey('tenant.passport_id'),
+                          nullable=False)

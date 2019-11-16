@@ -1,44 +1,71 @@
 from flask_restful import Resource
 
-from blueprints.staff.arg_parser import (staff_parser,
-                                         staff_parser_patch,
-                                         staff_parser_delete,
-                                         staff_parser_post)
-from blueprints.staff.staff_db import staff_storage, StaffObj
-
-from blueprints.staff.staff_object_serlzer import marshal_with_decor
+from blueprints.staff.staff_arg_parser import (staff_parser,
+                                               staff_parser_patch,
+                                               staff_parser_post,
+                                               staff_room_parser)
+from blueprints.staff.staff_model import StaffObj
+from blueprints.rooms.rooms_model import Room
+from blueprints.staff.staff_object_serlzer import (marshal_with_decor,
+                                                   marshal_with_room_decor)
+from hotel_db import db
 
 
 class Staff(Resource):
     @marshal_with_decor
     def get(self):
         staff_filters = staff_parser.parse_args()
-        response = staff_storage
         if any(tuple(staff_filters.values())):
-            response = [staff for staff in staff_storage
-                        for staff_filter in staff_filters.items()
-                        if getattr(staff, staff_filter[0]) == staff_filter[1]]
-        return response
+            return StaffObj.query.filter_by(
+                                            **{k: v
+                                               for k, v in staff_filters.items()
+                                               if v}
+                                           ).first()
+        return StaffObj.query.all()
 
     def post(self):
         new_staff_values = staff_parser_post.parse_args()
-        staff_storage.append(StaffObj(**new_staff_values))
+        db.session.add(StaffObj(**new_staff_values))
+        db.session.commit()
         return 'New staff was successfully added!'
 
-    def patch(self):
+    def patch(self, passport_id=None):
         staff_info_to_update = staff_parser_patch.parse_args()
-        staff_to_update = None
-        for staff in staff_storage:
-            if staff.name == staff_info_to_update.get('name'):
-                staff_to_update = staff
+        staff_to_update = StaffObj.query.filter_by(
+                             passport_id=passport_id
+                          ).first_or_404()
         for key, value in staff_info_to_update.items():
-            setattr(staff_to_update, key, value)
+            if value:
+                setattr(staff_to_update, key, value)
+        db.session.commit()
         return (f'Info about Staff: {staff_to_update.name}, '
-                f'passport #{staff_to_update.passport_id} was successfully updated!')
+                f'passport #{staff_to_update.passport_id} '
+                f'was successfully updated!')
 
-    def delete(self):
-        staff_to_delete = staff_parser_delete.parse_args().get('name')
-        for staff in staff_storage:
-            if staff.name == staff_to_delete:
-                staff_storage.remove(staff)
-                return f'The staff - {staff.name} successfully deleted from database!'
+    def delete(self, passport_id=None):
+        staff_to_delete = StaffObj.query.filter_by(
+                               passport_id=passport_id
+                          ).first_or_404()
+        name = staff_to_delete.name
+        db.session.delete(staff_to_delete)
+        return f'The staff - {name} successfully deleted from database!'
+
+
+class StaffRooms(Resource):
+    @marshal_with_room_decor
+    def get(self):
+        filters = staff_room_parser.parse_args(strict=True)
+        staff_with_rooms = StaffObj.query.filter_by(
+                                    passport_id=filters.get('staff_id')
+                           ).first_or_404()
+        return staff_with_rooms.rooms
+
+    def post(self):
+        data = staff_room_parser.parse_args()
+        staff = StaffObj.query.filter_by(passport_id=data.get('staff_id')
+                                         ).first_or_404()
+        room = Room.query.filter_by(number=data.get('room_id')).first_or_404()
+        staff.rooms.append(room)
+        db.session.commit()
+        return f'Successfully added the room #{room.number} ' \
+               f'to the staff: {staff.passport_id}'
