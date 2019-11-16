@@ -7,4 +7,4 @@ from blueprints.tenants.tenants_routes import Tenants
 
 tenants_page = Blueprint('Tenants', __name__)
 api = Api(tenants_page)
-api.add_resource(Tenants, '/tenants')
+api.add_resource(Tenants, '/tenants', '/tenants/<passport_id>')

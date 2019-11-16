@@ -1,12 +1,13 @@
 from flask_restful import reqparse
 
 tenant_parser = reqparse.RequestParser(bundle_errors=True)
-tenant_parser.add_argument("name", type=str, location='args')
-tenant_parser.add_argument("passport_id", type=str, location='args')
-tenant_parser.add_argument("age", type=int, location='args')
-tenant_parser.add_argument("gender", type=str, location='args')
-tenant_parser.add_argument("room_number", type=int, location='args')
-tenant_parser.add_argument("address", type=dict, location='args')
+tenant_parser.add_argument("id", type=int, location=['form', 'args', 'json'])
+tenant_parser.add_argument("name", type=str, location=['form', 'args', 'json'])
+tenant_parser.add_argument("passport_id", type=str, location=['form', 'args', 'json'])
+tenant_parser.add_argument("age", type=int, location=['form', 'args', 'json'])
+tenant_parser.add_argument("gender", type=str, location=['form', 'args', 'json'])
+tenant_parser.add_argument("room_number", type=int, location=['form', 'args', 'json'])
+tenant_parser.add_argument("address", type=dict, location=['form', 'args', 'json'])
 
 tenant_parser_post = tenant_parser.copy()
 tenant_parser_post.replace_argument("name",

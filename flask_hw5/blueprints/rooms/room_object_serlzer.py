@@ -2,7 +2,6 @@ from flask_restful import marshal_with, fields
 
 
 room_structure = {
-    "id": fields.Integer,
     "number": fields.Integer,
     "level": fields.String,
     "price": fields.Integer,

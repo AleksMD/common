@@ -17,16 +17,13 @@ class Rooms(Resource):
 
     def post(self):
         new_room_values = room_parser_post.parse_args()
-        new_room = Room(**new_room_values)
-        DB.session.add(new_room)
+        DB.session.add(Room(**new_room_values))
         DB.session.commit()
         return 'New room was successfully added!', 200
 
     def patch(self, number):
         room_info_to_update = room_parser_patch.parse_args()
-        print(room_info_to_update)
         room_to_update = Room.query.filter_by(number=number).first()
-        print(dir(room_to_update))
         if not room_to_update:
             return 'Sorry the room you are looking for was not found.'
         else:
