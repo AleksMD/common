@@ -22,17 +22,19 @@ class Staff(Resource):
                                                if v}).first_or_404()
         return StaffObj.query.all()
 
+    @marshal_with_decor
     def post(self):
         new_staff_values = staff_parser_post.parse_args()
-        db.session.add(StaffObj(**new_staff_values))
+        new_staff_to_add = StaffObj(**new_staff_values)
+        db.session.add(new_staff_to_add)
         try:
             db.session.commit()
         except SQLAlchemyError:
             return 'Something wrong happened on our side. Please, try later!'
-        return 'New staff was successfully added!'
+        return new_staff_to_add, 201
 
     def patch(self, passport_id=None):
-        staff_info_to_update = staff_parser_patch.parse_args()
+        staff_info_to_update = staff_parser_patch.parse_args(strict=True)
         staff_to_update = StaffObj.query.filter_by(
                              passport_id=passport_id
                           ).first_or_404()
@@ -57,7 +59,7 @@ class Staff(Resource):
             db.session.commit()
         except SQLAlchemyError:
             return 'Something wrong happened on our side. Please, try later!'
-        return f'The staff - {name} successfully deleted from database!'
+        return f'The staff - {name} successfully deleted from database!', 204
 
 
 class StaffRooms(Resource):

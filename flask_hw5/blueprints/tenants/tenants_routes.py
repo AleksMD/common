@@ -28,7 +28,7 @@ class Tenants(Resource):
             db.session.commit()
         except SQLAlchemyError:
             return 'Something wrong happened on our side. Please, try later!'
-        return tenant_to_add, 200
+        return tenant_to_add, 201
 
     def patch(self, passport_id=None):
         tenant_info_to_update = tenant_parser_patch.parse_args()
@@ -55,4 +55,4 @@ class Tenants(Resource):
             db.session.commit()
         except SQLAlchemyError:
             return 'Something wrong happened on our side. Please, try later!'
-        return f'The tenant - {name} successfully deleted from database!', 200
+        return f'The tenant - {name} successfully deleted from database!', 204

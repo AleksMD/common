@@ -28,18 +28,14 @@ class Rooms(Resource):
             db.session.commit()
         except SQLAlchemyError:
             return 'Something wrong happened on our side. Please, try later!'
-        return room_to_add, 200
+        return room_to_add, 201
 
     def patch(self, number):
         room_info_to_update = room_parser_patch.parse_args()
         room_to_update = Room.query.filter_by(number=number).first_or_404()
-        if not room_to_update:
-            return 'Sorry the room you are looking for was not found.'
-        else:
-            for key, value in room_info_to_update.items():
-                if value:
-                    setattr(room_to_update, key, value)
-
+        for key, value in room_info_to_update.items():
+            if value:
+                setattr(room_to_update, key, value)
         try:
             db.session.commit()
         except SQLAlchemyError:
@@ -54,4 +50,4 @@ class Rooms(Resource):
             db.session.commit()
         except SQLAlchemyError:
             return 'Something wrong happened on our side. Please, try later!'
-        return f'The room #{number} successfully deleted from database!', 200
+        return f'The room #{number} successfully deleted from database!', 204
