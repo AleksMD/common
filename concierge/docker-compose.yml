@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 services:
   concierge:
     build: .
@@ -9,3 +9,15 @@ services:
       interval: 10s
       timeout: 1s
       retries: 2
+
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=concierge
+      - PG_DATA=/var/lib/postgresql/data
+    ports:
+      - 5433:3433
+    volumes:
+      - ./data:/var/lib/postgresql
