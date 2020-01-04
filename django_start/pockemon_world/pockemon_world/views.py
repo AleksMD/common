@@ -1,6 +1,5 @@
 import requests
 from django.http import HttpResponse
-from pprint import pprint
 import json
 
 POKEMON_API = 'https://pokeapi.co/api/v2/' 
