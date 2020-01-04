@@ -1,0 +1,5 @@
+*.sqlite3
+Dockerignore
+__pycache__
+.git*
+

@@ -1,9 +1,9 @@
 # IDE files
 .idea/
-__pycache__/
-
-.pyc
-
+**__pycache__/
+django_start/myvenv/
+*.pyc
+*.sqlite3
 relational_database/cat.txt
 venv/
 flask_rest/app.py
